@@ -129,7 +129,6 @@ class TwitterBot:
             print(f"{Fore.LIGHTGREEN_EX}[+] Sayfa yüklendi!");
            
             if (counter > 10 and counter % 10 == 0):
-                # TODO: sarı 
                 print(f"{Fore.LIGHTRED_EX}[!] 10 kullanıcı tarafından işlem yapıldı. Kısıtlamalardan korunmak için 10 dakika bekleniyor..");
                 sleep(600);
                 print(f"{Fore.LIGHTGREEN_EX}[+] Bekleme süresi bitti! Devam ediliyor..");
