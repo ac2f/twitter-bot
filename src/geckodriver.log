@@ -750,3 +750,133 @@ console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message f
 [Child 16000, MediaDecoderStateMachine #1] WARNING: 1be60b2f2e0 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:330
 console.error: "Task cancelled"
 console.error: "Unable to find target with innerWindowId:2147483661"
+1650048118380	geckodriver	INFO	Listening on 127.0.0.1:51963
+1650048121480	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "51964" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\user\\AppData\\Local\\Temp\\rust_mozprofileTI6R1C"
+1650048122479	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\user\\AppData\\Local\\Temp\\rust_mozprofileTI6R1C\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:51964/devtools/browser/9506058c-b213-41c1-8de9-6d5b4cc68c90
+1650048125155	Marionette	INFO	Listening on port 51989
+Read port: 51989
+1650048125247	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://twitter.com"
+JavaScript error: https://abs.twimg.com/responsive-web/client-web/main.f9f218a5.js, line 12: Error: ApiError: https://twitter.com/i/api/1.1/account/settings.json HTTP-0 codes:[1004] trace_ids:[null]
+JavaScript error: https://abs.twimg.com/responsive-web/client-web/main.f9f218a5.js, line 12: Error: ApiError: https://twitter.com/i/api/1.1/onboarding/callback.json HTTP-0 codes:[1004] trace_ids:[null]
+1650048479295	geckodriver	INFO	Listening on 127.0.0.1:52245
+1650048482341	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "52246" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\user\\AppData\\Local\\Temp\\rust_mozprofilexyZYVb"
+1650048483055	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\user\\AppData\\Local\\Temp\\rust_mozprofilexyZYVb\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:52246/devtools/browser/70eb6254-0c3a-42fc-986f-8d5abe471081
+1650048488285	Marionette	INFO	Listening on port 52281
+Read port: 52281
+1650048488323	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://twitter.com"
+JavaScript error: https://abs.twimg.com/responsive-web/client-web/main.f9f218a5.js, line 12: Error: ApiError: https://twitter.com/i/api/graphql/lFi3xnx0auUUnyG4YwpCNw/GetUserClaims HTTP-0 codes:[1004] trace_ids:[null]
+1650048582452	geckodriver	INFO	Listening on 127.0.0.1:52382
+1650048587020	geckodriver	INFO	Listening on 127.0.0.1:52390
+1650048590075	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "52391" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\user\\AppData\\Local\\Temp\\rust_mozprofileQn6LhM"
+1650048590518	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\user\\AppData\\Local\\Temp\\rust_mozprofileQn6LhM\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:52391/devtools/browser/11c23b97-e7f6-4064-a02d-5bc6ec11ded9
+1650048595625	Marionette	INFO	Listening on port 52419
+Read port: 52419
+1650048595740	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://twitter.com/i/flow/login, line 131: ChunkLoadError: Loading chunk 309 failed.
+(error: https://abs.twimg.com/responsive-web/client-web/ondemand.emoji.en.57921755.js)
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://twitter.com"
+JavaScript error: https://twitter.com/i/flow/login, line 131: ChunkLoadError: Loading chunk 185 failed.
+(error: https://abs.twimg.com/responsive-web/client-web/loader.TimelineRenderer.2503e445.js)
+JavaScript error: https://abs.twimg.com/responsive-web/client-web/main.f9f218a5.js, line 12: Error: ApiError: https://twitter.com/i/api/graphql/lFi3xnx0auUUnyG4YwpCNw/GetUserClaims HTTP-0 codes:[1004] trace_ids:[null]
+1650048702407	geckodriver	INFO	Listening on 127.0.0.1:52528
+1650048705487	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "52529" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\user\\AppData\\Local\\Temp\\rust_mozprofile7Zl39b"
+1650048705943	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\user\\AppData\\Local\\Temp\\rust_mozprofile7Zl39b\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:52529/devtools/browser/35a790bf-ea51-4456-9f29-c296642e3479
+1650048708074	Marionette	INFO	Listening on port 52554
+Read port: 52554
+1650048711120	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://twitter.com"
+1650048926807	Marionette	INFO	Stopped listening on port 52554
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+remote-debugging-port" "52734" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\user\\AppData\\Local\\Temp\\rust_mozprofilePFQRan"
+1650048913487	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\user\\AppData\\Local\\Temp\\rust_mozprofilePFQRan\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:52734/devtools/browser/fecf70b2-407e-436a-9347-8aca10cf3202
+1650048916313	Marionette	INFO	Listening on port 52762
+Read port: 52762
+1650048916441	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://twitter.com"
+[Child 9704, MediaDecoderStateMachine #1] WARNING: 1e0132d3c80 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:330
+[Child 9704, MediaDecoderStateMachine #1] WARNING: 1e01b9ad3c0 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:330
+[Child 9704, MediaDecoderStateMachine #1] WARNING: 1e019822900 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:330
+1650049063271	geckodriver	INFO	Listening on 127.0.0.1:52916
+1650049066327	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "52917" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\user\\AppData\\Local\\Temp\\rust_mozprofileqpO64I"
+1650049066775	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\user\\AppData\\Local\\Temp\\rust_mozprofileqpO64I\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:52917/devtools/browser/e46b9d07-3202-4829-9659-f311d489b66f
+1650049069052	Marionette	INFO	Listening on port 52942
+Read port: 52942
+1650049069113	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://twitter.com"
+1650049371262	geckodriver	INFO	Listening on 127.0.0.1:53216
+1650049374306	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "53217" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\user\\AppData\\Local\\Temp\\rust_mozprofileZBu0Ua"
+1650049374748	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\user\\AppData\\Local\\Temp\\rust_mozprofileZBu0Ua\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:53217/devtools/browser/aff1371b-b132-44fd-9ffe-879820bc451c
+1650049377133	Marionette	INFO	Listening on port 53240
+Read port: 53240
+1650049379086	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://twitter.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://twitter.com"
+[Child 16664, MediaDecoderStateMachine #1] WARNING: 2172b7212e0 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:330
+[Child 16664, MediaDecoderStateMachine #1] WARNING: 2172b1edd60 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:330
+[Child 16664, MediaDecoderStateMachine #1] WARNING: 217284f8d60 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:330
+[Child 16664, MediaDecoderStateMachine #1] WARNING: 2172ed782e0 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:330
+[Child 16664, MediaDecoderStateMachine #1] WARNING: 2172a160c80 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:330
+JavaScript error: , line 0: uncaught exception: No valid Session
+[Child 16664, MediaDecoderStateMachine #1] WARNING: 2172db35580 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:330
+[Child 16664, MediaDecoderStateMachine #1] WARNING: 21731793580 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:330
+[Child 16664, MediaDecoderStateMachine #1] WARNING: 2172f23fba0 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:330
+[Child 16664, MediaDecoderStateMachine #1] WARNING: 2172f23f4a0 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:330
+1650049722018	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+TimedPromise/<@chrome://remote/content/marionette/sync.js:235:19
+TimedPromise@chrome://remote/content/marionette/sync.js:220:10
+interaction.flushEventLoop@chrome://remote/content/marionette/interaction.js:431:10
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:179:31
+1650049722758	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+TimedPromise/<@chrome://remote/content/marionette/sync.js:235:19
+TimedPromise@chrome://remote/content/marionette/sync.js:220:10
+interaction.flushEventLoop@chrome://remote/content/marionette/interaction.js:431:10
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:179:31
+1650049723478	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+TimedPromise/<@chrome://remote/content/marionette/sync.js:235:19
+TimedPromise@chrome://remote/content/marionette/sync.js:220:10
+interaction.flushEventLoop@chrome://remote/content/marionette/interaction.js:431:10
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:179:31
+1650049725243	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+TimedPromise/<@chrome://remote/content/marionette/sync.js:235:19
+TimedPromise@chrome://remote/content/marionette/sync.js:220:10
+interaction.flushEventLoop@chrome://remote/content/marionette/interaction.js:431:10
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:179:31
+1650049725973	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+TimedPromise/<@chrome://remote/content/marionette/sync.js:235:19
+TimedPromise@chrome://remote/content/marionette/sync.js:220:10
+interaction.flushEventLoop@chrome://remote/content/marionette/interaction.js:431:10
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:179:31
+[Child 16664, MediaDecoderStateMachine #1] WARNING: 2172de98740 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:330
+1650049761260	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+TimedPromise/<@chrome://remote/content/marionette/sync.js:235:19
+TimedPromise@chrome://remote/content/marionette/sync.js:220:10
+interaction.flushEventLoop@chrome://remote/content/marionette/interaction.js:431:10
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:179:31
+1650049911953	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+TimedPromise/<@chrome://remote/content/marionette/sync.js:235:19
+TimedPromise@chrome://remote/content/marionette/sync.js:220:10
+interaction.flushEventLoop@chrome://remote/content/marionette/interaction.js:431:10
+webdriverClickElement@chrome://remote/content/marionette/interaction.js:179:31
+[Child 16664, MediaDecoderStateMachine #1] WARNING: 217291d44a0 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:330
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://twitter.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://twitter.com"
+[Child 16664, MediaDecoderStateMachine #1] WARNING: 2172c340200 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:330
+[Child 16664, MediaDecoderStateMachine #1] WARNING: 2172b1a2120 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:330
+[Child 16664, MediaDecoderStateMachine #1] WARNING: 2172908cba0 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:330
+[Child 16664, MediaDecoderStateMachine #1] WARNING: 21729051ac0 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:330
