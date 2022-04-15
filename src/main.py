@@ -2,10 +2,17 @@ from lib2to3.pgen2 import driver
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 from selenium.common.exceptions import *
 from colorama import Fore, init
 from time import time, sleep
 import os
+
+
+MAKSIMUM_RT_HESAP_SAYISI:int = 10;
+
+
+
 init(convert=True, autoreset = True);
 os.environ["LANG"] = "en_US.UTF-8";
 class TwitterBot:
@@ -24,13 +31,19 @@ class TwitterBot:
             "loginPageNext1": "//div[@role=\"button\"]//span//span",
             "wrongPassword": '//span[text()="Wrong password!" or contains(text(), "Yanlış")]',
             "postFrame": '//div[contains(@style, "; position: absolute; width: 100%; transition: opacity 0.3s ease-out 0s;")][{0}]/div/div/article[@data-testid="tweet"]',
-            "lastPostsTextXpath": '//div[contains(@style, "; position: absolute; width: 100%; transition: opacity 0.3s ease-out 0s;")][{0}]/div/div/article[@data-testid="tweet"]//div[@dir="auto" and contains(@id, "id__")][1]',
-            "lastPostsRetweetButton": '//div[contains(@style, "; position: absolute; width: 100%; transition: opacity 0.3s ease-out 0s;")][{0}]/div/div/article[@data-testid="tweet"]//div[@data-testid="retweet"]',
-            "lastPostsUnRetweetButton": '//div[contains(@style, "; position: absolute; width: 100%; transition: opacity 0.3s ease-out 0s;")][{0}]/div/div/article[@data-testid="tweet"]//div[@data-testid="unretweet"]',
-            "lastPostsRetweetConfirm": '//div[@data-testid="retweetConfirm"]',
-            "lastPostsLikeButton": '//div[contains(@style, "; position: absolute; width: 100%; transition: opacity 0.3s ease-out 0s;")][{0}]/div/div/article[@data-testid="tweet"]//div[@data-testid="like"]',
-            "lastPostsUnLikeButton": '//div[contains(@style, "; position: absolute; width: 100%; transition: opacity 0.3s ease-out 0s;")][{0}]/div/div/article[@data-testid="tweet"]//div[@data-testid="unlike"]'
+            "retweetConfirmButton": '//div[@data-testid="retweetConfirm"]',
+            # "lastPostsTextXpath": '//div[contains(@style, "; position: absolute; width: 100%; transition: opacity 0.3s ease-out 0s;")][{0}]/div/div/article[@data-testid="tweet"]//div[@dir="auto" and contains(@id, "id__")][1]',
+            # "lastPostsRetweetButton": '//div[contains(@style, "; position: absolute; width: 100%; transition: opacity 0.3s ease-out 0s;")][{0}]/div/div/article[@data-testid="tweet"]//div[@data-testid="retweet"]',
+            # "lastPostsUnRetweetButton": '//div[contains(@style, "; position: absolute; width: 100%; transition: opacity 0.3s ease-out 0s;")][{0}]/div/div/article[@data-testid="tweet"]//div[@data-testid="unretweet"]',
+            # "lastPostsRetweetConfirm": '//div[@data-testid="retweetConfirm"]',
+            # "lastPostsLikeButton": '//div[contains(@style, "; position: absolute; width: 100%; transition: opacity 0.3s ease-out 0s;")][{0}]/div/div/article[@data-testid="tweet"]//div[@data-testid="like"]',
+            # "lastPostsUnLikeButton": '//div[contains(@style, "; position: absolute; width: 100%; transition: opacity 0.3s ease-out 0s;")][{0}]/div/div/article[@data-testid="tweet"]//div[@data-testid="unlike"]'
         };
+        self.xpathMap["postText"]               =   self.xpathMap["postFrame"] + '//div[@dir="auto" and contains(@id, "id__")][1]';
+        self.xpathMap["postRetweetButton"]      =   self.xpathMap["postFrame"] + '//div[@data-testid="retweet"]';
+        self.xpathMap["postUnRetweetButton"]    =   self.xpathMap["postFrame"] + '//div[@data-testid="unretweet"]';
+        self.xpathMap["postLikeButton"]         =   self.xpathMap["postFrame"] + '//div[@data-testid="like"]';
+        self.xpathMap["postUnLikeButton"]       =   self.xpathMap["postFrame"] + '//div[@data-testid="unlike"]';
         self.readUsernamesAsList();
 
     def initAndLoginToWebdrivers(self):
@@ -41,28 +54,28 @@ class TwitterBot:
             driver = webdriver.Firefox(executable_path="../bin/geckodriver.exe", options=self.driverOptions);
             print(f"{Fore.LIGHTGREEN_EX}[+] Tarayıcı başlatıldı! Siteye yönlendiriliyor..");
             while True:
-                
                 driver.get("https://twitter.com/i/flow/login");
                 print(f"{Fore.LIGHTGREEN_EX}[+] Siteye yönlendirildi! Bilgiler giriliyor..");
                 driver.implicitly_wait(1);
                 try:
                     driver.find_element_by_xpath(self.xpathMap["usernameEntry"]).send_keys(username);
                     driver.find_element_by_xpath(self.xpathMap["loginPageNext0"]).click();
-                    
-                except :
-                    print(f"{Fore.LIGHTMAGENTA_EX}[!] Sayfa doğru yüklenemedi gibi gözüküyor. Yeniden deneniyor..");
+                    print(f"{Fore.LIGHTGREEN_EX}[+] Kullanıcı adı girildi! Şifre giriliyor..");
+                except:
+                    print(f"{Fore.LIGHTMAGENTA_EX}[!] Sayfa doğru yüklenemedi gibi gözüküyor. Bu sorun kullanıcı adı girme bölümünün uyumsuz şekilde yüklenmesinden kaynaklıdır ve birkaç deneme sonunda devam edecektir. Yeniden deneniyor..");
                     sleep(5);
                     continue;
-                print(f"{Fore.LIGHTGREEN_EX}[+] 1");
                 driver.implicitly_wait(1);
                 while True:
                     try:
                         driver.find_element_by_xpath(self.xpathMap["passwordEntry"]).send_keys(password);
                         driver.find_element_by_xpath(self.xpathMap["loginPageNext1"]).click();
-                        print(f"{Fore.LIGHTGREEN_EX}[+] 1");
+                        print(f"{Fore.LIGHTGREEN_EX}[+] Şifre girildi! Yönlendiriliyor..");
                         break;
                     except:
-                        input(f"{Fore.LIGHTMAGENTA_EX}[!] Şifre girerken bir hata ile karşılaşıldı! Lütfen şifre girme bölümüne geldikten sonra <ENTER> tuşuna basın.");
+                        print(f"{Fore.LIGHTMAGENTA_EX}[!] Şifre girerken bir hata ile karşılaşıldı! Lütfen şifre girme bölümüne geldikten sonra <ENTER> tuşuna basın.");
+                        input();
+                        break;
                 try:
                     driver.find_element_by_xpath(self.xpathMap["wrongPassword"]);
                     print(f"{Fore.LIGHTMAGENTA_EX}[-] \"{username}\" için şifre yanlış!");
@@ -72,8 +85,11 @@ class TwitterBot:
                         "password": password,
                         "driver": driver
                     });
-                print(f"{Fore.LIGHTBLUE_EX}[?] Lütfen giriş yaptıysanız devam etmek için {Fore.LIGHTGREEN_EX}<ENTER>{Fore.LIGHTBLUE_EX} tuşuna basın.", end="\r");
-                input();
+                if (not driver.current_url.endswith("/home")):
+                    print(f"{Fore.LIGHTBLUE_EX}[?] Lütfen giriş yaptıysanız devam etmek için {Fore.LIGHTGREEN_EX}<ENTER>{Fore.LIGHTBLUE_EX} tuşuna basın.", end="\r");
+                    input();
+                else:
+                    print(f"{Fore.LIGHTGREEN_EX}[+] Başarıyla giriş yapıldı! Devam ediliyor..");
                 break;
             
 
@@ -85,8 +101,7 @@ class TwitterBot:
         while True:
             for action, counter in zip(self.actions, range(len(self.actions))):
                 print(f"{Fore.LIGHTGREEN_EX}[+] İşlemler başlatılıyor..");
-                self.doAction(action["username"]);
-                sleep(3);
+                self.doAction(str(action["username"]).strip().replace("\n", ""));
 
                 ###   İPTAL
                 #
@@ -119,6 +134,11 @@ class TwitterBot:
             # print(f"{Fore.LIGHTCYAN_EX}[!] İşlemler tamamlandı! Bir sonraki kontrol için 360 saniye bekleniyor..");
             # sleep(360);
 
+    def checkElementExists(self, driver:webdriver.Firefox, xpath:str):
+        try:
+            return driver.find_element(by=By.XPATH, value = xpath);
+        except (NoSuchElementException, ElementClickInterceptedException):
+            return False;
     def doAction(self, username:str):
         for driver, counter in zip(self.drivers, range(len(self.drivers))):
             driver = driver["driver"];
@@ -127,8 +147,137 @@ class TwitterBot:
             print(f"{Fore.LIGHTYELLOW_EX}[!] Sayfanın yüklenmesi bekleniyor..");
             sleep(5);
             print(f"{Fore.LIGHTGREEN_EX}[+] Sayfa yüklendi!");
+            input_completed:bool = False;
+            while not input_completed:
+                print(f"{Fore.LIGHTBLUE_EX}[?] Kontrol etmek istediğiniz gönderi sayısını giriniz(14'den sonrası Twitter'ın sistemi yüzünden çalışmamaktadır): ");
+                try:
+                    maxPosts:int = int(input());        
+                except ValueError:
+                    maxPosts = 1000;
+                if (maxPosts < 2 or maxPosts >  999):
+                    print(f"{Fore.LIGHTRED_EX}[-] Hatalı veri girişi! Lütfen 2 ve 999 arasında bir sayı seçiniz..");
+                    continue;
+                break;
+            counterPostINDEX:int = 1;
+            counterPost:int = 1;
+            firstErrRaiseIndex:int = 0;
+            while counterPost <= maxPosts:
+                # driver.execute_script(f"window.scrollTo(0, {250 * counterPost});");
+                if (counterPost > 16): break; 
+                tmpXpath = {i:self.xpathMap[i].format(counterPostINDEX) for i in self.xpathMap};
+                counterPostINDEX += 1;
+                counterPost += 1;
+                done:dict = {"like": -1, "retweet": -1};
+                if (not self.checkElementExists(driver, '//span[contains(text(), "Profile")]') and not self.checkElementExists(driver, '//span[contains(text(), "Profil")]')):
+                    driver.get(f"https://twitter.com/{username}");
+                    sleep(3);
+                loopFinish = False;
+                while not loopFinish:
+                    buttonLike = self.checkElementExists(driver, tmpXpath["postLikeButton"]);
+                    # buttonUnLike = self.checkElementExists(driver, tmpXpath["postUnLikeButton"]);
+                    buttonRetweet = self.checkElementExists(driver, tmpXpath["postRetweetButton"]);
+                    # buttonUnRetweet = self.checkElementExists(driver, tmpXpath["postUnRetweetButton"]);
+                    try:
+                        if(not (buttonLike or self.checkElementExists(driver, tmpXpath["postUnLikeButton"]))):
+                            maxPosts += 1;
+                            print(f"[-]{counterPost}/{maxPosts}   -  {counterPostINDEX} Index değerine ait bir gönderi bulunamadı! Devam ediliyor..");
+                            loopFinish = True;       
+                            continue;
+                        if (buttonLike != False):
+                            buttonLike.click();
+                            done["like"] = 1;
+                            print(f"{Fore.LIGHTGREEN_EX}[+] {counterPost}/{maxPosts}   -  {counterPostINDEX}Başarıyla like atıldı! Devam ediliyor..");
+                        else:
+                            done["like"] = 0;
+                            print(f"{Fore.LIGHTMAGENTA_EX}[-] {counterPost}/{maxPosts}   -  {counterPostINDEX}Bu gönderiye zaten like atılmış! Devam ediliyor..");
+                        if (buttonRetweet != False and (counter < MAKSIMUM_RT_HESAP_SAYISI)):
+                            buttonRetweet.click();
+                            self.checkElementExists(driver, self.xpathMap["retweetConfirmButton"]).click();
+                            done["retweet"] = 1;  
+                            print(f"{Fore.LIGHTGREEN_EX}[+] {counterPost}/{maxPosts}   -  {counterPostINDEX}Başarıyla retweet atıldı! Devam ediliyor..");
+                        else:
+                            done["retweet"] = 0;
+                            print(f"{Fore.LIGHTMAGENTA_EX}[-] {counterPost}/{maxPosts}   -  {counterPostINDEX}Bu gönderiye zaten retweet atılmış! Devam ediliyor..");
+                        if (done["retweet"] > -1 or done["like"] > -1):
+                            firstErrRaiseIndex = 0;
+                        if (firstErrRaiseIndex != 0 and counterPost - firstErrRaiseIndex > 8):
+                            counterPost = maxPosts+1;
+                            continue;
+                        buttonUnLike = self.checkElementExists(driver, tmpXpath["postUnLikeButton"]);
+                        buttonUnRetweet = self.checkElementExists(driver, tmpXpath["postUnRetweetButton"]);
+                        if (not (buttonUnLike or buttonUnRetweet)):
+                            continue;
+                        loopFinish = True;
+                    except ElementClickInterceptedException as e:
+                        counterPost -= 1;
+                        xpath:str = str(e).split("> obscures it")[0].split("=")[-1];
+                        try:
+                            driver.find_element_by_xpath("//div[@class="+xpath+"]/div[2]/div[1]//span").click();
+                        except :
+                            pass;
+                    
+                #     try:
+                #         driver.find_element_by_xpath(tmpXpath["postUnLikeButton"]);
+                #         firstErrRaiseIndex = 0;
+                #         done["like"] = 0;
+                #     except NoSuchElementException as e:
+                #         try:
+                #             driver.find_element_by_xpath(tmpXpath["postLikeButton"]);
+                #             firstErrRaiseIndex = 0;
+                #         except NoSuchElementException:
+                #             pass
+                #             print(f"{Fore.LIGHTRED_EX}{e}")
+                #             print(f"{Fore.LIGHTMAGENTA_EX}[-] Kullanıcının gönderisi bulunamadı! (Bu sorun önerilen kişiler ile gönderilerin aynı değeri taşımasından kaynaklıdır. Birkaç deneme sonra sorunsuz devam edecektir)");
+                #             maxPosts += 1;
+                #             counterPost2-=1;
+                #             if (firstErrRaiseIndex==0):
+                #                 firstErrRaiseIndex = counterPost2;
+                #             elif (counterPost2 - firstErrRaiseIndex > 8):
+                #                 break;
+                #             continue;
+                # except ElementClickInterceptedException as e:
+                #     driver.get(f"https://twitter.com/{username}");
+                #     counterPost -= 1;
+                #     xpath:str = str(e).split("> obscures it")[0].split("=")[-1];
+                #     try:
+                #         driver.find_element_by_xpath("//div[@class="+xpath+"]/div[2]/div[1]//span").click();
+                #     except :
+                #         pass;
+                #     continue;
+                # if (done["like"]==0):
+                #     print(f"{Fore.LIGHTMAGENTA_EX}[-] Bu gönderiye zaten like atılmış! Devam ediliyor..");
+                # if (counter < MAKSIMUM_RT_HESAP_SAYISI):
+                #     try:
+                #         driver.find_element_by_xpath(tmpXpath["postRetweetButton"]).click();
+                #         driver.find_element_by_xpath(tmpXpath["retweetConfirmButton"]).click();
+                #         done["retweet"] = 1;
+                #         print(f"{Fore.LIGHTGREEN_EX}[+] Başarıyla retweet atıldı! Devam ediliyor..");
+                #     except NoSuchElementException:
+                #         try:
+                #             driver.find_element_by_xpath(tmpXpath["postUnRetweetButton"])
+                #         except NoSuchElementException:
+                #             pass
+                #     if (done["retweet"] == 0):
+                #         print(f"{Fore.LIGHTMAGENTA_EX}[-] Bu gönderiye zaten retweet atılmış! Devam ediliyor..");
+                # try:
+                #     driver.find_element_by_xpath(tmpXpath["postUnRetweetButton"]);
+                #     driver.find_element_by_xpath(tmpXpath["postUnLikeButton"]);
+                # except NoSuchElementException:
+                #     counterPostINDEX -= 1;
+                #     continue;
+            print(f"{Fore.LIGHTGREEN_EX}[+] {username} için işlemler tamamlandı! Devam ediliyor..");
+            sleep(3);
+        
+        return;
+        for driver, counter in zip(self.drivers, range(len(self.drivers))):
+            driver = driver["driver"];
+            print(f"{Fore.LIGHTGREEN_EX}[!] Sayfa yükleniyor.. https://twitter.com/{username}");
+            driver.get(f"https://twitter.com/{username}");
+            print(f"{Fore.LIGHTYELLOW_EX}[!] Sayfanın yüklenmesi bekleniyor..");
+            sleep(5);
+            print(f"{Fore.LIGHTGREEN_EX}[+] Sayfa yüklendi!");
            
-            if (counter > 10 and counter % 10 == 0):
+            if (counter+1 >= 10 and counter+1 % 10 == 0):
                 print(f"{Fore.LIGHTRED_EX}[!] 10 kullanıcı tarafından işlem yapıldı. Kısıtlamalardan korunmak için 10 dakika bekleniyor..");
                 sleep(600);
                 print(f"{Fore.LIGHTGREEN_EX}[+] Bekleme süresi bitti! Devam ediliyor..");
@@ -136,7 +285,14 @@ class TwitterBot:
             while not break_:
                 
                 counter:int = 1;
-                max:int = 6;
+                max:int = 40;
+                inputCompleted:bool = False;
+                while not inputCompleted:
+                    try:
+                        max = int(input("Kontrol edilecek maksimum gönderi sayısını giriniz: "));
+                        inputCompleted = True;
+                    except ValueError:
+                        pass
                 while counter<=max:
                     tmpXpath = {i:self.xpathMap[i].format(counter) for i in self.xpathMap};
                     counter+=1;
@@ -146,23 +302,24 @@ class TwitterBot:
                         max += 1;
                         continue;
                     try:
-                        try:
-                            driver.find_element_by_xpath(tmpXpath["lastPostsUnRetweetButton"]);
-                            print(f"{Fore.LIGHTMAGENTA_EX}[-] Zaten retweet atılmış! Devam ediliyor..");
-                            break_ = True;
-                        except (NoSuchElementException) as e:
-                            print("e");
-                            print(f"{Fore.LIGHTYELLOW_EX}[!] Retweet atılıyor..");
-                            loopRT:bool = True;
-                            while loopRT:
-                                try:
-                                    print(f"{Fore.LIGHTBLUE_EX} {tmpXpath['lastPostsRetweetButton']}");
-                                    driver.find_element_by_xpath(tmpXpath["lastPostsRetweetButton"]).click();
-                                    print(f"{Fore.LIGHTBLUE_EX} {tmpXpath['lastPostsRetweetConfirm']}");
-                                    driver.find_element_by_xpath(tmpXpath["lastPostsRetweetConfirm"]).click();
-                                    loopRT = False;
-                                except NoSuchElementException:
-                                    driver.get(f"https://twitter.com/{username}");
+                        if (MAKSIMUM_RT_HESAP_SAYISI > counter + 1):
+                            try:
+                                driver.find_element_by_xpath(tmpXpath["lastPostsUnRetweetButton"]);
+                                print(f"{Fore.LIGHTMAGENTA_EX}[-] Zaten retweet atılmış! Devam ediliyor..");
+                                break_ = True;
+                            except (NoSuchElementException) as e:
+                                print(f"{Fore.LIGHTYELLOW_EX}[!] Retweet atılıyor..");
+                                loopRT:bool = True;
+                                while loopRT:
+                                    try:
+                                        print(f"{Fore.LIGHTBLUE_EX} {tmpXpath['lastPostsRetweetButton']}");
+                                        driver.find_element_by_xpath(tmpXpath["lastPostsRetweetButton"]).click();
+                                        print(f"{Fore.LIGHTBLUE_EX} {tmpXpath['lastPostsRetweetConfirm']}");
+                                        driver.find_element_by_xpath(tmpXpath["lastPostsRetweetConfirm"]).click();
+                                        print(f"{Fore.LIGHTGREEN_EX}[+] Retweet atıldı! ");
+                                        loopRT = False;
+                                    except NoSuchElementException:
+                                        driver.get(f"https://twitter.com/{username}");
                         try:
                             driver.find_element_by_xpath(tmpXpath["lastPostsUnLikeButton"]);
                             print(f"{Fore.LIGHTMAGENTA_EX}[-] Zaten like atılmış! Program bitiriliyor..");
@@ -182,8 +339,8 @@ class TwitterBot:
                             raiseErr = True;
                         if (raiseErr):
                             print(f"[-] Like veya retweet atılırken veya retweet atılırken hata ile karşılaşıldı! Tekrar deneniyor..");
-                        if (not raiseErr and break_):
-                            break;
+                        # if (not raiseErr and break_):
+                        #     break;
                     except ElementClickInterceptedException as e:
                         xpath:str = str(e).split("> obscures it")[0].split("=")[-1];
                         try:
