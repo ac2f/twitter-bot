@@ -17,15 +17,17 @@ os.environ["LANG"] = "en_US.UTF-8"
 
 
 class TwitterBot:
-    def __init__(self, credentialsFilePath: str, usernamesFilePath: str):
+    def __init__(self, credentialsFilePath: str, usernamesFilePath: str, proxiesFilePath: str):
         self.credentialsFilePath: str = credentialsFilePath
         self.usernamesFilePath: str = usernamesFilePath
-        if (any(not os.path.exists(i) for i in [credentialsFilePath, usernamesFilePath])):
+        self.proxiesFilePath: str = proxiesFilePath
+        if (any(not os.path.exists(i) for i in [credentialsFilePath, usernamesFilePath, proxiesFilePath])):
             raise FileNotFoundError(
                 "Dosya bulunamadı! Lütfen girdiğiniz dosya konumlarını kontrol ediniz..")
         self.driverOptions = Options()
-        self.drivers: list = []
-        self.actions = []
+        self.drivers:list = []
+        self.actions:list = []
+        self.proxies:list = []
         self.xpathMap = {
             "usernameEntry": '//input[@autocomplete="username"]',
             "loginPageNext0": "//div[@role=\"button\"][2]//span//span",
@@ -38,15 +40,18 @@ class TwitterBot:
             "postLikeButton": '//div[@data-testid="like"]',
             "logoutConfirm": '//div[1]/div[1]/span/span'
         }
-        self.readUsernamesAsList()
+        self.readProxiesAsList();
+        self.readUsernamesAsList();
 
     def initAndLoginToWebdrivers(self):
         print(
             f"{Fore.LIGHTGREEN_EX}[+] Tarayıcılar başlatılıyor ve giriş yapılıyor..")
         credentials = self.readCredentialsAsList();
-        driver = webdriver.Firefox(
-            executable_path="../bin/geckodriver.exe", options=self.driverOptions)
         for credential, counter in zip(credentials, range(len(credentials))):
+            self.driverOptions = Options()
+            # self.driverOptions.add_argument('--proxy-server=%s' % self.proxies[counter] if len(self.proxies) < counter else self.proxies[0])
+            driver = webdriver.Firefox(
+                executable_path="../bin/geckodriver.exe", options=self.driverOptions)
             loginUsername, password = credential[0], credential[1]
             print(
                 f"\n{Fore.LIGHTYELLOW_EX}[!] Giriş yapılacak:  {loginUsername}:{password}")
@@ -180,24 +185,24 @@ class TwitterBot:
                                     "//div[@class="+xpath+"]/div[2]/div[1]//span").click()
                             except:
                                 pass
+                # TODO: tarayıcıya çıkış yaptır
+                # driver.get("https://twitter.com/logout");
+                # sleep(3);
+                # logoutConfirm = self.checkElementExists(driver, self.xpathMap["logoutConfirm"]);
+                # if (logoutConfirm):
+                #     logoutConfirm.click();
+                #     print(f"{Fore.LIGHTMAGENTA_EX}[!] Başarıyla çıkış yapıldı! Eğer sırada hesap var ise giriş yapılacak.");
+                #     sleep(3);
+                # else:
+                #     print(f"{Fore.LIGHTRED_EX}[!] Çıkış yaparken bir hata ile karşılaşıldı! Lütfen manuel olarak çıkış yapıp <ENTER> tuşuna basınız..");
+                #     input();
+                # sleep(3);
+                # break;
                 
                 
                 
                 
                 
-                
-                driver.get("https://twitter.com/logout");
-                sleep(3);
-                logoutConfirm = self.checkElementExists(driver, self.xpathMap["logoutConfirm"]);
-                if (logoutConfirm):
-                    logoutConfirm.click();
-                    print(f"{Fore.LIGHTMAGENTA_EX}[!] Başarıyla çıkış yapıldı! Eğer sırada hesap var ise giriş yapılacak.");
-                    sleep(3);
-                else:
-                    print(f"{Fore.LIGHTRED_EX}[!] Çıkış yaparken bir hata ile karşılaşıldı! Lütfen manuel olarak çıkış yapıp <ENTER> tuşuna basınız..");
-                    input();
-                sleep(3);
-                break;
                 # if (not driver.current_url.endswith("/home")):
                 #     print(
                 #         f"{Fore.LIGHTBLUE_EX}[?] Lütfen giriş yaptıysanız devam etmek için {Fore.LIGHTGREEN_EX}<ENTER>{Fore.LIGHTBLUE_EX} tuşuna basın.", end="\r")
@@ -555,7 +560,6 @@ class TwitterBot:
 
     def readUsernamesAsList(self) -> list:
         print("Ayarlar yükleniyor..")
-        data = []
         with open(self.usernamesFilePath, 'r+') as f:
             for username in f.readlines():
                 self.actions.append({
@@ -568,10 +572,17 @@ class TwitterBot:
                 print(
                     f"{Fore.LIGHTGREEN_EX}[+] {username} için ayarlar yüklendi!")
 
+    def readProxiesAsList(self) -> list:
+        print("Proxyler yükleniyor..")
+        with open(self.proxiesFilePath, 'r+') as f:
+            for proxy in f.readlines():
+                self.proxies.append(proxy)
+                print(
+                    f"{Fore.LIGHTGREEN_EX}[+] Proxy adresi \"{proxy}\" yüklendi!");
 
 def main():
     print(f"{Fore.LIGHTGREEN_EX}[+] Program başlatılıyor..")
-    TB = TwitterBot("input/girisbilgileri.txt", "input/hedefkullanicilar.txt")
+    TB = TwitterBot("input/girisbilgileri.txt", "input/hedefkullanicilar.txt", "input/proxies.txt");
     print(
         f"{Fore.LIGHTGREEN_EX}[+] Program belleğe dahil edildi.. Çalıştırılıyor.. S: 1")
     TB.initAndLoginToWebdrivers()
